@@ -22,10 +22,13 @@ public interface UserDao {
 //            "last_name LIKE :last LIMIT 1")
 //    User findByName(String first, String last);
 
+    @Query("DELETE FROM user")
+    void deleteAll();
+
 
     @Insert
     void insertAll(User... users);
 
     @Delete
-    void delete(User user);
+    void deleteUsers(User... users);
 }

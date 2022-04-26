@@ -17,7 +17,8 @@ public class AddActivity extends AppCompatActivity {
     private EditText edt_name1;
     private EditText edt_name2;
     private Button btn_ok;
-    private AppDatabase userDB;
+    private Button btn_del;
+    private AppDatabase userDB = null;
 
 
     @Override
@@ -27,7 +28,8 @@ public class AddActivity extends AppCompatActivity {
 
         edt_name1=findViewById(R.id.edt_name);
         edt_name2=findViewById(R.id.edt_name2);
-        btn_ok=findViewById(R.id.btn_ok);
+        btn_ok=findViewById(R.id.btn_add);
+        btn_del=findViewById(R.id.btn_del);
 
         userDB = AppDatabase.getInstance(this);
 
@@ -43,11 +45,35 @@ public class AddActivity extends AppCompatActivity {
             }
         }
 
+        class DeleteRunnable implements Runnable {
+
+            @Override
+            public void run() {
+
+                userDB.getInstance(getApplicationContext()).userDao().deleteAll();
+
+
+            }
+        }
+
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 InsertRunnable insertRunnable = new InsertRunnable();
                 Thread addThread = new Thread(insertRunnable);
+                addThread.start();
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btn_del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DeleteRunnable deleteRunnable = new DeleteRunnable();
+                Thread addThread = new Thread(deleteRunnable);
                 addThread.start();
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);

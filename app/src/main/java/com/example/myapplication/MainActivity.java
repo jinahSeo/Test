@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Entity;
@@ -34,15 +35,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btn_ok.findViewById(R.id.btn_ok);
+        btn_ok = findViewById(R.id.btn_ok);
         rcv = findViewById(R.id.recyclerView1);
 
 
         uAdapter = new UserAdapter(userList);
-        rcv.setAdapter(uAdapter);
+        //rcv.setAdapter(uAdapter);
 
         //DB 생성
         userDB = AppDatabase.getInstance(this);
+
 
         class InsertRunnable implements Runnable {
             @Override
@@ -55,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
                     rcv.setAdapter(uAdapter);
                     LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
                     rcv.setLayoutManager(mLinearLayoutManager);
+
+                    RecyclerDecoration spaceDecoration = new RecyclerDecoration(5);
+                    DividerItemDecoration di = new DividerItemDecoration(rcv.getContext(), new LinearLayoutManager(getApplicationContext()).getOrientation());
+
+                    rcv.addItemDecoration(spaceDecoration);
+                    rcv.addItemDecoration(di);
+
                 }
                 catch (Exception e) {
 
