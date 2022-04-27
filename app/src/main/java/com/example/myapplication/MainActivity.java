@@ -23,73 +23,29 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppDatabase userDB = null;
-
-    private Button btn_ok;
-    private RecyclerView rcv;
-    private List<User> userList;
-    private UserAdapter uAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btn_ok = findViewById(R.id.btn_ok);
-        rcv = findViewById(R.id.recyclerView1);
+        Button btn_db = findViewById(R.id.btn_db);
+        Button btn_ld = findViewById(R.id.btn_ld);
 
-
-        uAdapter = new UserAdapter(userList);
-        //rcv.setAdapter(uAdapter);
-
-        //DB 생성
-        userDB = AppDatabase.getInstance(this);
-
-
-        class InsertRunnable implements Runnable {
-            @Override
-            public void run() {
-                try {
-                    userList = userDB.getInstance(getApplicationContext()).userDao().getAll();
-                    uAdapter = new UserAdapter(userList);
-                    uAdapter.notifyDataSetChanged();
-
-                    rcv.setAdapter(uAdapter);
-                    LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
-                    rcv.setLayoutManager(mLinearLayoutManager);
-
-                    RecyclerDecoration spaceDecoration = new RecyclerDecoration(5);
-                    DividerItemDecoration di = new DividerItemDecoration(rcv.getContext(), new LinearLayoutManager(getApplicationContext()).getOrientation());
-
-                    rcv.addItemDecoration(spaceDecoration);
-                    rcv.addItemDecoration(di);
-
-                }
-                catch (Exception e) {
-
-                }
-            }
-        }
-
-        InsertRunnable ir = new InsertRunnable();
-        Thread t = new Thread(ir);
-        t.start();
-
-        btn_ok.setOnClickListener(new View.OnClickListener() {
+        btn_db.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), AddActivity.class);
-                startActivity(intent);
-                finish();
+                Intent i = new Intent(getApplicationContext(), DBaseActivity.class);
+                startActivity(i);
             }
         });
 
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        userDB.destroyInstance();
-        userDB = null;
+        btn_ld.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), LDataActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }

@@ -16,7 +16,7 @@ public class AddActivity extends AppCompatActivity {
 
     private EditText edt_name1;
     private EditText edt_name2;
-    private Button btn_ok;
+    private Button btn_add;
     private Button btn_del;
     private AppDatabase userDB = null;
 
@@ -28,7 +28,7 @@ public class AddActivity extends AppCompatActivity {
 
         edt_name1=findViewById(R.id.edt_name);
         edt_name2=findViewById(R.id.edt_name2);
-        btn_ok=findViewById(R.id.btn_add);
+        btn_add=findViewById(R.id.btn_add);
         btn_del=findViewById(R.id.btn_del);
 
         userDB = AppDatabase.getInstance(this);
@@ -56,14 +56,14 @@ public class AddActivity extends AppCompatActivity {
             }
         }
 
-        btn_ok.setOnClickListener(new View.OnClickListener() {
+        btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 InsertRunnable insertRunnable = new InsertRunnable();
                 Thread addThread = new Thread(insertRunnable);
                 addThread.start();
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), DBaseActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -76,7 +76,7 @@ public class AddActivity extends AppCompatActivity {
                 Thread addThread = new Thread(deleteRunnable);
                 addThread.start();
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), DBaseActivity.class);
                 startActivity(intent);
                 finish();
             }
