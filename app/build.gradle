@@ -34,6 +34,13 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.room:room-runtime:2.3.0'
 
+    //Retrofit Library
+    implementation 'com.squareup.retrofit2:retrofit:2.6.4'
+    //Gson Converter Library
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.4'
+    //Scalars Converter Library
+    implementation 'com.squareup.retrofit2:converter-scalars:2.6.4'
+
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
