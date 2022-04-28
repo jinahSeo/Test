@@ -2,6 +2,7 @@ package com.example.myapplication.interfaces;
 
 import com.example.myapplication.model.PostResult;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

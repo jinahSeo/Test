@@ -11,6 +11,7 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,10 +21,18 @@ import com.example.myapplication.Database.User;
 import com.example.myapplication.Database.UserDao;
 import com.example.myapplication.interfaces.RetrofitService;
 import com.example.myapplication.model.PostResult;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.apache.log4j.Logger;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mindpipe.android.logging.log4j.LogConfigurator;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +41,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
+//    private Logger mLogger = Logger.getLogger(MainActivity.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
         Button btn_db = findViewById(R.id.btn_db);
         Button btn_ld = findViewById(R.id.btn_ld);
         Button btn_wv = findViewById(R.id.btn_wv);
+
+
+        LogConfigurator logCfg = new LogConfigurator();
+        logCfg.setFileName(Environment.getExternalStorageDirectory()+"/logFile.log");
+
+        Logger mLogger = Logger.getLogger(MainActivity.class);
+
+        mLogger.info("onCreate");
 
         btn_db.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(getApplicationContext(), WViewActivity.class);
             startActivity(i);
         });
+
 
         //서버 통신
 
@@ -99,5 +118,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        // jackson example
+
+        //Convert java object to json
+
+
+
     }
 }
